@@ -1,6 +1,7 @@
 {
   "name": "micropropiedad-btc",
   "version": "0.1.0",
+  "private": true,
   "description": "Fractional real estate tokenization platform on Stacks/sBTC",
   "keywords": [
     "stacks",
@@ -17,23 +18,41 @@
     "type": "git",
     "url": "https://github.com/yourusername/micropropiedad-btc"
   },
+
+  "engines": {
+    "node": "20.x"
+  },
+
+  "packageManager": "npm@10.5.0",
+
   "scripts": {
-    "install:all": "npm install && cd frontend && npm install && cd ../contracts && npm install && cd ../backend && npm install",
+    "install:all": "npm install --workspaces",
+    
+    "dev": "npm run dev --workspace=frontend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+
+    "build": "npm run build --workspace=frontend",
+    "build:all": "npm run build --workspaces",
+
+    "start": "npm run start --workspace=frontend",
+
     "dev:contracts": "cd contracts && clarinet devnet start",
-    "dev:frontend": "cd frontend && npm run dev",
-    "dev:backend": "cd backend && npm run dev",
     "test:contracts": "cd contracts && npm test",
     "test:watch": "cd contracts && npm run test:watch",
     "check:contracts": "cd contracts && clarinet check",
     "deploy:testnet": "cd contracts && clarinet deployments apply --testnet",
     "deploy:mainnet": "cd contracts && clarinet deployments apply --mainnet",
-    "lint": "npm run lint --workspaces",
+
+    "lint": "npm run lint --workspaces --if-present",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
   },
+
   "workspaces": [
     "frontend",
     "backend"
   ],
+
   "devDependencies": {
     "prettier": "^3.1.1"
   }
